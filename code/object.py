@@ -1,11 +1,13 @@
 import numpy as np
-from vector import Vector
 class Object:
     def __init__(self, xy, wh, color, type):
-        self._xy = Vector(xy)    # x, y - middle of the brick
-        self._wh = Vector(wh)    # width, height
+        self._xy = xy    # x, y - middle of the brick
+        self._wh = wh    # width, height
         self._color = color
         self._type = type
+
+    def draw(self, screen):
+        pass
 
     def get_xy(self):
         return self._xy
@@ -15,6 +17,9 @@ class Object:
 
     def get_type(self):
         return self._type
+
+    def get_color(self):
+        return self._color
 
 
 
