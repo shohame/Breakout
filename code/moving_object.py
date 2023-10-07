@@ -3,7 +3,7 @@ from object import Object
 class MovingObject(Object):
     def __init__(self, xy, wh, color, type, v_xy=(0, 0)):
         super().__init__(xy, wh, color, type)
-        self._v_xy = v_xy
+        self._v_xy = list(v_xy)
 
     def get_v_xy(self):
         return self._v_xy
@@ -14,23 +14,33 @@ class MovingObject(Object):
     def move(self, dt):
         x, y = self._xy
         vx, vy = self._v_xy
-        self._xy = (x + vx * dt, y + vy * dt)
+        self._xy = [x + vx * dt, y + vy * dt]
 
     def bounce(self, axis):
         vx, vy = self._v_xy
         if axis == 'x':
-            self._v_xy = (-vx, vy)
+            self._v_xy = [-vx, vy]
         elif axis == 'y':
-            self._v_xy = (vx, -vy)
+            self._v_xy = [vx, -vy]
         else:
             raise ValueError(f'axis must be x or y, not {axis}')
-
     def hit_wall(self):
         x, y = self._xy
         vx, vy = self._v_xy
         w, h = self._wh
         return x - w/2 <= 0 or x + w/2 >= 100 # TODO: change to SCREEN_WIDTH
-
+    @property
+    def vx(self):
+        return self._v_xy[0]
+    @vx.setter
+    def vx(self, value):
+        self._v_xy[0] = value
+    @property
+    def vy(self):
+        return self._v_xy[1]
+    @vy.setter
+    def vy(self, value):
+        self._v_xy[1] = value
 
 if __name__=="__main__":
     # testing MovingObject:

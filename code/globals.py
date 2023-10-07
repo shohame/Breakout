@@ -24,7 +24,7 @@ class GameColors():
     PADDLE = Colors.BLUE
     BACKGROUND = Colors.BLACK
     TEXT = Colors.WHITE
-    BORDER = Colors.GRAY
+    WALL = Colors.GRAY
     POWERUP = Colors.GREEN
 
 class GameDimensions():
@@ -34,7 +34,7 @@ class GameDimensions():
     BORDER_THICKNESS = 5
     POWERUP_SIZE = 20
     TEXT_SIZE = 16
-
+    SCREEN_WH = (400, 600)
 
 
 if __name__ == "__main__":

@@ -88,8 +88,9 @@ def check_collision(ball, paddle, blocks):
         
     # Check collision with blocks
     for block in blocks:
-        if block.alive and (block.x <= ball.x <= block.x + BLOCK_WIDTH) and (block.y <= ball.y - BALL_RADIUS <= block.y + BLOCK_HEIGHT or block.y <= ball.y + BALL_RADIUS <= block.y + BLOCK_HEIGHT):
-            block.alive = False
+        if (block.alive and (block.x <= ball.x <= block.x + BLOCK_WIDTH) and
+                (block.y <= ball.y - BALL_RADIUS <= block.y + BLOCK_HEIGHT or
+                 block.y <= ball.y + BALL_RADIUS <= block.y + BLOCK_HEIGHT)):
             ball.bounce('y')
             break
 

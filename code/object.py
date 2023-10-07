@@ -1,10 +1,49 @@
 import numpy as np
+
+class ObjectType:
+    BRICK = "brick"
+    BALL = "ball"
+    PADDLE = "paddle"
+    WALL = "wall"
+
+
+
 class Object:
     def __init__(self, xy, wh, color, type):
-        self._xy = xy    # x, y - middle of the brick
-        self._wh = wh    # width, height
+        self._xy = list(xy)    # x, y - middle of the brick
+        self._wh = list(wh)    # width, height
         self._color = color
         self._type = type
+
+    @property
+    def x(self):
+        return self._xy[0]
+
+    @x.setter
+    def x(self, value):
+        self._xy[0] = value
+
+    @property
+    def y(self):
+        return self._xy[1]
+
+    @y.setter
+    def y(self, value):
+        self._xy[1] = value
+    @property
+    def w(self):
+        return self._wh[0]
+
+    @w.setter
+    def w(self, value):
+        self._wh[0] = value
+
+    @property
+    def h(self):
+        return self._wh[1]
+    @h.setter
+    def h(self, value):
+        self._wh[1] = value
 
     def draw(self, screen):
         pass
