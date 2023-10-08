@@ -13,7 +13,7 @@ class Brick(Object):
         x, y = self._xy
         w, h = self._wh
         color = self._color
-        pygame.draw.rect(screen, color, (x-w/2, y-h/2, w, h))
+        pygame.draw.rect(screen, color, (x, y, w, h))
 
 
 

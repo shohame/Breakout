@@ -19,9 +19,10 @@ def get_objects():
              Wall([0, screen_h - wall_w], [screen_w, wall_w])]
 
   #  bricks = [Block(x * BLOCK_WIDTH, y * BLOCK_HEIGHT) for y in range(BLOCK_ROWS) for x in range(BLOCK_COLS)]
+    bricks = []
+    for y in range(30, g_dim[1] - 300, 30):
+        for x in range(50 + 25*(y%30), g_dim.SCREEN_WH[0] - 50, 80):
 
+            bricks.append(Brick([x, y]))
 
-    bricks = [Brick((50, 50)), Brick((150, 50))]
     return paddle, balls, walls, bricks
-
-
