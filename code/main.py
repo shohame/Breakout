@@ -28,19 +28,22 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 paddle.set_v_xy((-100, 0))
             if event.key == pygame.K_RIGHT:
                 paddle.set_v_xy((100, 0))
+
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 paddle.set_v_xy((0, 0))
+
     dt = game_sync.get_dt()
     balls[0].move(dt)
     paddle.move(dt)
 
-    balls[0].check_collision(walls, paddle, bricks)
+    balls[0].check_all_collision(walls, paddle, bricks)
 
     balls[0].draw(screen)
     paddle.draw(screen)

@@ -11,11 +11,12 @@ class Ball(MovingObject):
         super().__init__(xy, wh, color, type, v_xy)
 
     def draw(self, screen):
-        # draw a circle
         x, y = self._xy
-        w, h = self._wh
+        r = self._wh[0] / 2
+        xc = x + r
+        yc = y + r
         color = self._color
-        pygame.draw.circle(screen, color, (int(x), int(y)), int(w/2))
+        pygame.draw.circle(screen, color, (int(xc), int(yc)), int(r))
 
     def bounce(self, axis):  # TODO: Think about moving this to MovingObject
         if axis == 'x':
@@ -23,26 +24,54 @@ class Ball(MovingObject):
         elif axis == 'y':
             self._v_xy[1] = -self._v_xy[1]
 
-    def check_collision(self, walls, paddle, blocks):
-        # Check collision with paddle
-        pad_x, pad_y = paddle.get_xy()
-        pad_w, pad_h = paddle.get_wh()
-        self_x, self_y = self.get_xy()
-        self_w, self_h = self.get_wh()
-        if (pad_x <= self_x <= pad_x + pad_w) and (pad_y <= self_x + self_w / 2 <= pad_y + pad_h):
-            self.bounce('y')
+    def check_collision(self, obj):
 
-        # Check collision with blocks
-        for block in blocks.copy():
-            blk_x, blk_y = block.get_xy()
-            blk_w, blk_h = block.get_wh()
+        ball_x, ball_y = self.get_xy()
+        ball_r = self._wh[0] / 2
+        ball_cx, ball_cy = ball_x + ball_r, ball_y + ball_r
 
-            if (self_x <= self_x <= self_x + self_w) and (
-                    blk_y <= self_y - self_w <= blk_y + blk_h or
-                    blk_y <= self_y + self_w <= blk_y + blk_h):
-                blocks.remove(block)
+        obj_x, obj_y = obj.get_xy()
+        obj_w, obj_h = obj.get_wh()
+
+        # Compute brick's boundaries
+        brick_left = obj_x
+        brick_right = obj_x + obj_w
+        brick_top = obj_y
+        brick_bottom = obj_y + obj_h
+
+        # Compute the closest point in the brick to the ball
+        closest_x = max(brick_left, min(ball_cx, brick_right))
+        closest_y = max(brick_top, min(ball_cy, brick_bottom))
+
+        # Calculate the distance between the ball's center and this closest point
+        distance_x = ball_cx - closest_x
+        distance_y = ball_cy - closest_y
+        distance = (distance_x ** 2 + distance_y ** 2) ** 0.5
+
+        # Check for collision
+        if distance < ball_r:
+            # Ball has collided with the brick
+
+            # If ball hits top or bottom of brick, invert Y velocity
+            if ball_cy <= brick_top or ball_cy >= brick_bottom:
                 self.bounce('y')
-                break
+
+            # If ball hits left or right of brick, invert X velocity
+            if ball_cx <= brick_left or ball_cx >= brick_right:
+                self.bounce('x')
+
+            return True
+        else:
+            return False
+
+    def check_all_collision(self, walls, paddle, blocks):
+
+        for wall in walls:
+            self.check_collision(wall)
+
+        for block in blocks.copy():
+            if self.check_collision(block):
+                blocks.remove(block)
 
 
 if __name__=="__main__":
