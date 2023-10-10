@@ -35,6 +35,7 @@ class GameDimensions():
     POWERUP_SIZE = 20
     TEXT_SIZE = 16
     SCREEN_WH = (800, 600)
+    WALL_THICKNESS = 10
 
 
 if __name__ == "__main__":

@@ -13,12 +13,14 @@ screen = pygame.display.set_mode(g_dim.SCREEN_WH) #, pygame.DOUBLEBUF) # | pygam
 pygame.display.set_caption("Breakout Game")
 clock = pygame.time.Clock()
 
+objects = get_objects()
 
-# get_objects:
-paddle, balls, walls, bricks = get_objects()
+balls = objects['balls']
+paddle = objects['paddle']
+walls = objects['walls']
+bricks = objects['bricks']
 
 running = True
-
 game_sync = GameSync()
 i=0
 t = pygame.time.get_ticks()

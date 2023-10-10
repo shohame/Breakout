@@ -70,9 +70,11 @@ class Ball(MovingObject):
             self.check_collision(wall)
 
         for block in blocks.copy():
-            if self.check_collision(block):
+            do_remove = self.check_collision(block)
+            if do_remove:
                 blocks.remove(block)
 
+        self.check_collision(paddle)
 
 if __name__=="__main__":
     ball = Ball((400, 200), (-3,4))
