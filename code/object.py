@@ -14,7 +14,7 @@ class Object:
         self._wh = list(wh)    # width, height
         self._color = color
         self._type = type
-
+    """
     @property
     def x(self):
         return self._xy[0]
@@ -44,12 +44,15 @@ class Object:
     @h.setter
     def h(self, value):
         self._wh[1] = value
-
+    """
     def draw(self, screen):
         pass
 
     def get_xy(self):
         return self._xy
+
+    def set_xy(self, xy):
+        self._xy = xy
 
     def get_wh(self):
         return self._wh

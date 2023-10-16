@@ -34,12 +34,21 @@ def get_objects():
 
 
     screen_w, screen_h = g_dim.SCREEN_WH
-
+    brick_w, brick_h = g_dim.BRICK_WH
+    wall_th = g_dim.WALL_THICKNESS
+    bricks_space = 20
+    w = screen_w - 2 * wall_th
+    wn = w // (brick_w + bricks_space)
+    # Creating list of bricks in a line left to right
+    number_of_lines = 5
     bricks = []
-    for y in range(30, g_dim.SCREEN_WH[1] - 300, 30):
-        for x in range(50 + 25*(y%30), g_dim.SCREEN_WH[0] - 50, 80):
 
+    for yi in range(number_of_lines):
+        for xi in range(wn):
+            x = 30 + (yi % 2) * (brick_w + bricks_space) // 2 + xi * (brick_w + bricks_space)
+            y = 30 + yi * (brick_h + bricks_space)
             bricks.append(Brick([x, y]))
+
     objects['bricks'] = bricks
 
     return objects

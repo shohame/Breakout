@@ -30,8 +30,7 @@ class GameColors():
 class GameDimensions():
     BRICK_WH = (60, 20)
     BALL_WH = (30, 30)
-    PADDLE_WH = (100, 10)
-    BORDER_THICKNESS = 5
+    PADDLE_WH = (100, 20)
     POWERUP_SIZE = 20
     TEXT_SIZE = 16
     SCREEN_WH = (800, 600)
