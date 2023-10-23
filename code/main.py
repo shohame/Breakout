@@ -3,7 +3,7 @@ import random
 from globals import GameDimensions as g_dim
 from build_game_objects import get_objects
 from game_sync import GameSync
-import math
+from math_utils import *
 # Initialize pygame
 pygame.init()
 
@@ -51,6 +51,7 @@ while running:
         pygame.event.set_grab(True)
 
     dt = game_sync.get_dt()
+   # dt = 1/60
     balls[0].move(dt)
     paddle.move(dt)
 
@@ -64,9 +65,9 @@ while running:
     for brick in bricks:
         brick.draw(screen)
 
-    vall_vx, ball_vy = balls[0].get_v_xy()
-    ball_v_angle = math.atan2(ball_vy, vall_vx)
-    print (ball_v_angle / math.pi * 180)
+  #  ball_vx, ball_vy = balls[0].get_v_xy()
+  #  ball_v_size, ball_v_angle = cartesian_to_polar(ball_vx, ball_vy)
+  #  print (ball_v_angle)
     pygame.display.flip()
     clock.tick(60)
     i+=1

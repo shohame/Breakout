@@ -17,7 +17,8 @@ def get_general_objects():
     # Creating list of 3 walls, left, right and top:
     walls = [Wall([0, 0], [wall_th, screen_h]),
                 Wall([screen_w - wall_th, 0], [wall_th, screen_h]),
-                Wall([0, 0], [screen_w, wall_th])]
+                Wall([0, 0], [screen_w, wall_th]),
+             Wall([0, g_dim.CEILING_Y], [screen_w, wall_th])]
 
 #    walls.append(Wall([0, screen_h - wall_th], [screen_w, wall_th]))
 
@@ -46,7 +47,7 @@ def get_objects():
     for yi in range(number_of_lines):
         for xi in range(wn):
             x = 30 + (yi % 2) * (brick_w + bricks_space) // 2 + xi * (brick_w + bricks_space)
-            y = 30 + yi * (brick_h + bricks_space)
+            y = 30 + yi * (brick_h + bricks_space) + g_dim.CEILING_Y
             bricks.append(Brick([x, y]))
 
     objects['bricks'] = bricks

@@ -1,14 +1,17 @@
 import pygame
 from object import  ObjectType
 from moving_object import MovingObject
-from globals import GameColors, GameDimensions
-import math
+from globals import GameColors
+from globals import GameDimensions as g_dim
+
 import numpy as np
+from math_utils import *
+
 
 class Ball(MovingObject):
     def __init__(self, xy, v_xy):
         type = ObjectType.BALL
-        wh = GameDimensions.BALL_WH
+        wh = g_dim.BALL_WH
         color = GameColors.BALL
         super().__init__(xy, wh, color, type, v_xy)
 
@@ -31,16 +34,17 @@ class Ball(MovingObject):
         ball_cx = self.get_xy()[0] + self._wh[0] / 2
         paddle_hw = paddle_w / 2
         self.bounce('y')
-        vall_vx, ball_vy = self.get_v_xy()
-        ball_v_angle = math.atan2(ball_vy, vall_vx)
-        ball_v_size = math.sqrt(ball_vy ** 2 + vall_vx ** 2)
-        ball_v_angle = ball_v_angle + (ball_cx - paddle_cx) / paddle_hw * math.pi / 3
-        ball_v_angle = np.clip(ball_v_angle, -math.pi / 3, math.pi / 3)
-        ang2rad = math.pi / 180
-        max_angle = -30 * ang2rad
-        min_angle = (-180 + 30) * ang2rad
-     #   ball_v_angle = np.clip(ball_v_angle, min_angle, max_angle)
-        self.set_v_xy([ball_v_size * math.cos(ball_v_angle), ball_v_size * math.sin(ball_v_angle)])
+        ball_vx, ball_vy = self.get_v_xy()
+        ball_v_size, ball_v_angle = cartesian_to_polar(ball_vx, ball_vy)
+
+        ball_v_angle2 = ball_v_angle + (ball_cx - paddle_cx) / paddle_hw * g_dim.BALL_PADDLE_ANGLE_RANGE
+        min_angle = -180 + g_dim.BALL_MIN_ANGLE
+        max_angle = -g_dim.BALL_MIN_ANGLE
+        ball_v_angle2 = np.clip(ball_v_angle2, min_angle, max_angle)
+        ball_vx2, ball_vy2 = polar_to_cartesian(ball_v_size, ball_v_angle2)
+
+
+        self.set_v_xy([ball_vx2, ball_vy2])
 
 
     def check_collision(self, obj):

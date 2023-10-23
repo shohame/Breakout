@@ -9,7 +9,7 @@ class MovingObject(Object):
         return self._v_xy
 
     def set_v_xy(self, v_xy):
-        self._v_xy = v_xy
+        self._v_xy = list(v_xy)
 
     def move(self, dt):
         x, y = self._xy

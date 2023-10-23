@@ -28,13 +28,16 @@ class GameColors():
     POWERUP = Colors.GREEN
 
 class GameDimensions():
-    BRICK_WH = (60, 20)
+    BRICK_WH = (60, 30)
     BALL_WH = (30, 30)
     PADDLE_WH = (100, 20)
     POWERUP_SIZE = 20
     TEXT_SIZE = 16
     SCREEN_WH = (800, 600)
     WALL_THICKNESS = 10
+    CEILING_Y = 80
+    BALL_PADDLE_ANGLE_RANGE = 45
+    BALL_MIN_ANGLE = 15
 
 
 if __name__ == "__main__":
